@@ -13,6 +13,36 @@
 	margin-left: 100px;
 }
 
+#color-splash #playground .cell {
+	width: 100px;
+	height: 100px;
+	border: 1px solid grey;
+}
+
+#color-splash #playground .cell[data-color="blue"] {
+	background-color: blue;
+}
+
+#color-splash #playground .cell[data-color="red"] {
+	background-color: red;
+}
+
+#color-splash #playground .cell[data-color="green"] {
+	background-color: green;
+}
+
+#color-splash #playground .cell[data-color="yellow"] {
+	background-color: yellow;
+}
+
+#color-splash #playground .cell[data-color="purple"] {
+	background-color: purple;
+}
+
+#color-splash #playground .cell[data-color="orange"] {
+	background-color: orange;
+}
+
 #color-splash .color-button {
 	height: 50px;
 	width: 50px;
