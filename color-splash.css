@@ -1,0 +1,22 @@
+#color-splash {
+	width: 800px;
+	height: 800px;
+	border: 1px solid grey;
+}
+
+#color-splash #playground {
+	border: 1px solid grey;
+	width: 600px;
+	height: 600px;
+	position: relative;
+	margin-top: 50px;
+	margin-left: 100px;
+}
+
+#color-splash .color-button {
+	height: 50px;
+	width: 50px;
+	border: 1px solid grey;
+	display: inline-block;
+	cursor: pointer;
+}
