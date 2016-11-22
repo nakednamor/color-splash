@@ -32,8 +32,8 @@ function ColorSplash($gameDiv) {
 		}
 	}
 
-	function initializeColors() {
-		currentColors = getRandomColors(cells.length);
+	function initializeColors(size) {
+		currentColors = getRandomColors(size);
 
 		var startColorIndex = getRandomInt(0, currentColors.length);
 		var startColor = currentColors[startColorIndex];
@@ -86,6 +86,6 @@ function ColorSplash($gameDiv) {
 	this.initialize = function(size) {
 		initializePlayground(size);
 
-		initializeColors();
+		initializeColors(size);
 	};
 }
