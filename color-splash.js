@@ -1,10 +1,21 @@
 function ColorSplash($gameDiv) {
 
-	var $playground = $('#playground', $gameDiv);
+	var COLORS = [ 'red', 'blue', 'green', 'yellow', 'purple', 'orange' ];
+	
+	var $playgroundElement = $('#playground', $gameDiv);
+	var playground = new CSPlayground($playgroundElement, COLORS);
+
+	// TODO bind to buttons easy, medium, hard and initialize the playground
+	// with the given size
+	playground.initialize(4);
+
+	
+}
+
+function CSPlayground($playground, COLORS) {
+
 	var cells;
 	var currentColors;
-
-	var COLORS = [ 'red', 'blue', 'green', 'yellow', 'purple', 'orange' ];
 
 	function initializePlayground(size) {
 		cells = new Array(size);
@@ -37,15 +48,11 @@ function ColorSplash($gameDiv) {
 
 		var startColorIndex = getRandomInt(0, currentColors.length);
 		var startColor = currentColors[startColorIndex];
-		addColor(cells[0][0], startColor);
+		cells[0][0].attr('data-color', startColor);
 
 		var remainingColors = currentColors.slice();
 		remainingColors.splice(startColorIndex, 1);
 		addColorsToNonStartCells(remainingColors);
-	}
-
-	function addColor($element, color) {
-		$element.attr('data-color', color);
 	}
 
 	function getRandomColors(amount) {
@@ -74,7 +81,7 @@ function ColorSplash($gameDiv) {
 				}
 
 				var index = getRandomInt(0, colors.length);
-				addColor(cells[i][j], colors[index]);
+				cells[i][j].attr('data-color', colors[index]);
 			}
 
 		}
@@ -85,7 +92,6 @@ function ColorSplash($gameDiv) {
 	 */
 	this.initialize = function(size) {
 		initializePlayground(size);
-
 		initializeColors(size);
 	};
 }
