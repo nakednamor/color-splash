@@ -1,7 +1,7 @@
 function ColorSplash($gameDiv) {
 
 	var COLORS = [ 'red', 'blue', 'green', 'yellow', 'purple', 'orange' ];
-	
+
 	var $playgroundElement = $('#playground', $gameDiv);
 	var playground = new CSPlayground($playgroundElement, COLORS);
 
@@ -9,7 +9,20 @@ function ColorSplash($gameDiv) {
 	// with the given size
 	playground.initialize(4);
 
-	
+	bindColorButtons();
+
+	function bindColorButtons() {
+
+		var $buttons = $('#color-buttons .color-button', $gameDiv);
+		$buttons.off('click').on('click', function(e) {
+			e.preventDefault();
+
+			var pickedColor = $(this).attr('data-color');
+			playground.pickColor(pickedColor);
+
+		});
+	}
+
 }
 
 function CSPlayground($playground, COLORS) {
@@ -87,11 +100,19 @@ function CSPlayground($playground, COLORS) {
 		}
 	}
 
+	function changeColor(color) {
+
+	}
+
 	/*
 	 * PUBLIC API
 	 */
 	this.initialize = function(size) {
 		initializePlayground(size);
 		initializeColors(size);
+	};
+
+	this.pickColor = function(color) {
+
 	};
 }
