@@ -40,23 +40,13 @@ describe('CSPlayground', function() {
 		});
 
 		it('should add the color of start-cell (0,3) to no other cell', function() {
-			var startCellColor = null;
-
-			var cells = $('td', $playgroundElement);
-			$.each(cells, function(index, element) {
-				var cell = $(element);
-				var xIndex = cell.attr('data-index-x');
-				var yIndex = cell.attr('data-index-y');
-
-				if (xIndex == '0' && yIndex == '3') {
-					startCellColor = cell.attr('data-color');
-					return false; // break the loop
-				}
-			});
+			var startCell = getCellByPosition($playgroundElement, 0, 3);
+			var startCellColor = startCell.attr('data-color');
 
 			expect(startCellColor).not.toBe(null);
 
 			// then
+			var cells = $('td', $playgroundElement);
 			$.each(cells, function(index, element) {
 				var cell = $(element);
 				var xIndex = cell.attr('data-index-x');
@@ -78,3 +68,21 @@ describe('CSPlayground', function() {
 	});
 
 });
+
+function getCellByPosition($playgroundElement, x, y) {
+	var expectedCell = null;
+
+	var cells = $('td', $playgroundElement);
+	$.each(cells, function(index, element) {
+		var cell = $(element);
+		var xIndex = cell.attr('data-index-x');
+		var yIndex = cell.attr('data-index-y');
+
+		if (xIndex == x && yIndex == y) {
+			expectedCell = cell;
+			return false; // break the loop
+		}
+	});
+
+	return expectedCell;
+}
