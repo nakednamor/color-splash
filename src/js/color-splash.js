@@ -43,9 +43,15 @@ function CSPlayground($playground, COLORS) {
 			var $rowClone = $row.clone();
 			cells[i] = new Array(size);
 
+			
+
 			for (j = 0; j < size; j++) {
 
 				var $cellClone = $cell.clone();
+
+				var xIndex = j;
+				var yIndex = (size - 1) - i;
+				$cellClone.text('('+j+','+yIndex+')');
 
 				cells[i][j] = $cellClone;
 
