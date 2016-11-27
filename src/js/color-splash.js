@@ -71,6 +71,9 @@ function CSPlayground($playground, COLORS) {
 
 		var remainingColors = currentColors.slice();
 		remainingColors.splice(startColorIndex, 1);
+
+		addColorsToStartCellNeighbours(remainingColors.slice());
+
 		addColorsToNonStartCells(remainingColors);
 	}
 
@@ -91,11 +94,35 @@ function CSPlayground($playground, COLORS) {
 		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
+	/*
+	 * the two neighbours of the start cell should have different colors
+	 */
+	function addColorsToStartCellNeighbours(colorsWithoutStartColor) {
+
+		var colorIndexNeighbour1 = getRandomInt(0, colorsWithoutStartColor.length);
+		var colorNeighbour1 = colorsWithoutStartColor[colorIndexNeighbour1];
+		cells[0][1].attr('data-color', colorNeighbour1);
+
+		colorsWithoutStartColor.splice(colorIndexNeighbour1, 1);
+
+		var colorIndexNeighbour2 = getRandomInt(0, colorsWithoutStartColor.length);
+		var colorNeighbour2 = colorsWithoutStartColor[colorIndexNeighbour2];
+		cells[1][0].attr('data-color', colorNeighbour2);
+		var x = 2;
+	}
+
 	function addColorsToNonStartCells(colors) {
 		for (i = 0; i < cells.length; i++) {
 
 			for (j = 0; j < cells.length; j++) {
+
 				if (i == 0 && j == 0) {
+					// skip start cell
+					continue;
+				}
+
+				if ((i == 1 && j == 0) || (i == 0 && j == 1)) {
+					// skip neighbours of start cell
 					continue;
 				}
 

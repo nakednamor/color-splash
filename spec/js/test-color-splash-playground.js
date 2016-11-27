@@ -7,11 +7,11 @@ describe('CSPlayground', function() {
 		$playgroundElement = $(document.createElement('table'));
 	});
 
-	describe('.initialize(4)', function() {
+	describe('.initialize(3)', function() {
 
 		// given
 		var colors = [ 'red', 'blue', 'green' ];
-		var size = 4;
+		var size = 3;
 
 		beforeEach(function() {
 			playground = new CSPlayground($playgroundElement, colors);
@@ -39,8 +39,8 @@ describe('CSPlayground', function() {
 			});
 		});
 
-		it('should add the color of start-cell (0,3) to no other cell', function() {
-			var startCell = getCellByPosition($playgroundElement, 0, 3);
+		it('should add the color of start-cell (0,2) to no other cell', function() {
+			var startCell = getCellByPosition($playgroundElement, 0, 2);
 			var startCellColor = startCell.attr('data-color');
 
 			expect(startCellColor).not.toBe(null);
@@ -52,18 +52,25 @@ describe('CSPlayground', function() {
 				var xIndex = cell.attr('data-index-x');
 				var yIndex = cell.attr('data-index-y');
 
-				if (xIndex == '0' && yIndex == '3') {
+				if (xIndex == '0' && yIndex == '2') {
 					return true; // continue;
 				}
 
 				var color = cell.attr('data-color');
+				expect(color).not.toBe(null);
 				expect(color).not.toBe(startCellColor);
 
 			});
 		});
 
-		it('cells (0,2) and (1,3) should have different color', function() {
-			fail('not yet implemented');
+		it('cells (0,1) and (1,2) should have different color', function() {
+			var cell01 = getCellByPosition($playgroundElement, 0, 1);
+			var color01 = cell01.attr('data-color');
+
+			var cell12 = getCellByPosition($playgroundElement, 1, 2);
+			var color12 = cell12.attr('data-color');
+
+			expect(color01).not.toBe(color12);
 		});
 	});
 
