@@ -146,6 +146,9 @@ function CSPlayground($playground, COLORS) {
 	};
 
 	this.pickColor = function(color) {
-
 	};
+}
+
+function CPtranslateCoordinatesToArray() {
+
 }

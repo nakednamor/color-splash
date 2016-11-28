@@ -173,6 +173,34 @@ describe('CSPlayground', function() {
 
 });
 
+describe('CPtranslateCoordinatesToArray(cells, x, y)', function() {
+
+	it('should return [0][0] on (0,3)', function() {
+		fail('not yet implemented');
+	});
+
+	it('should return [0][3] on (3,3)', function() {
+		fail('not yet implemented');
+	});
+
+	it('should return [3][0] on (0,0)', function() {
+		fail('not yet implemented');
+	});
+
+	it('should return [3][3] on (3,0)', function() {
+		fail('not yet implemented');
+	});
+	
+	it('should return [1][1] on (1,2)', function() {
+		fail('not yet implemented');
+	});
+	
+	it('should return [2][2] on (2,1)', function() {
+		fail('not yet implemented');
+	});
+
+});
+
 function getCellByPosition($playgroundElement, x, y) {
 	var expectedCell = null;
 
