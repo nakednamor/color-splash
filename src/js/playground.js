@@ -20,11 +20,9 @@ function CSPlayground($playground, COLORS) {
 
 				var $cellClone = $cell.clone();
 
-				var xIndex = j;
-				var yIndex = (size - 1) - i;
-				$cellClone.text('(' + j + ',' + yIndex + ')');
-				$cellClone.attr('data-index-x', xIndex);
-				$cellClone.attr('data-index-y', yIndex);
+				$cellClone.text('(' + i + ',' + j + ')');
+				$cellClone.attr('data-index-x', i);
+				$cellClone.attr('data-index-y', j);
 
 				cells[i][j] = $cellClone;
 
