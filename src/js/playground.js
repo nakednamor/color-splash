@@ -104,8 +104,46 @@ function CSPlayground($playground, COLORS) {
 		}
 	}
 
-	function changeColor(color) {
+	function changeColor(previousColor, nextColor, $element, processedElements, level) {
 
+		if ($.inArray($element, processedElements) != -1) {
+			return;
+		}
+
+		processedElements.push($element);
+
+		var currentColor = $element.attr('data-color');
+		if (currentColor != previousColor) {
+			return;
+		}
+
+		$element.attr('data-color', nextColor);
+
+		var neighbours = getNeighbours($element, level);
+		for (var i = 0; i < neighbours.length; i++) {
+			changeColor(previousColor, nextColor, neighbours[i], processedElements, level + 1);
+		}
+	}
+
+	function getNeighbours($cell, level) {
+		var neighbours = [];
+
+		var x = parseInt($cell.attr('data-index-x'));
+		var y = parseInt($cell.attr('data-index-y'));
+
+		var max = cells.length;
+		addNeighbourIfExists(neighbours, x - 1, y, max); // top
+		addNeighbourIfExists(neighbours, x, y + 1, max); // right
+		addNeighbourIfExists(neighbours, x + 1, y, max); // bottom
+		addNeighbourIfExists(neighbours, x, y - 1, max); // left
+
+		return neighbours;
+	}
+
+	function addNeighbourIfExists(neighbours, x, y, max) {
+		if (x >= 0 && x < max && y >= 0 && y < max) {
+			neighbours.push(cells[x][y]);
+		}
 	}
 
 	/*
@@ -117,5 +155,8 @@ function CSPlayground($playground, COLORS) {
 	};
 
 	this.pickColor = function(color) {
+		var previousColor = cells[0][0].attr('data-color');
+		var processedCells = [];
+		changeColor(previousColor, color, cells[0][0], processedCells, 0);
 	};
 }
