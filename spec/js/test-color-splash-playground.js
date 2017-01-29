@@ -132,12 +132,19 @@ describe('CSPlayground', function() {
 		describe('when (0,0), (1,0), (2,0), (1,1), (1,2), (0,2), (1,3) are blue and picked color is green', function() {
 
 			var pickedColor = 'green';
-			var otherCellsColor = 'blue';
+			var otherCellsColor = 'red';
 
 			beforeEach(function() {
 				// given
 				changeColorOfAllCells($playgroundElement, otherCellsColor);
+
 				changeColorOfCellByPosition($playgroundElement, 'blue', 0, 0);
+				changeColorOfCellByPosition($playgroundElement, 'blue', 1, 0);
+				changeColorOfCellByPosition($playgroundElement, 'blue', 2, 0);
+				changeColorOfCellByPosition($playgroundElement, 'blue', 1, 1);
+				changeColorOfCellByPosition($playgroundElement, 'blue', 1, 2);
+				changeColorOfCellByPosition($playgroundElement, 'blue', 0, 2);
+				changeColorOfCellByPosition($playgroundElement, 'blue', 1, 3);
 
 				// when
 				playground.pickColor(pickedColor);
@@ -201,11 +208,16 @@ function changeColorOfAllCells($playgroundElement, color) {
 
 function changeColorOfCellByPosition($playgroundElement, color, x, y) {
 	var cell = getCellByPosition($playgroundElement, x, y);
+	cell.attr('data-color', color);
 }
 
 function assertColorOfCell($playgroundElement, expectedColor, x, y) {
 	var cell = getCellByPosition($playgroundElement, x, y)
 	var color = cell.attr('data-color');
+
+	if (expectedColor != color) {
+		console.log('color of cell failing: (' + x + ',' + y + ')');
+	}
 
 	expect(color).toEqual(expectedColor);
 }
