@@ -2,6 +2,7 @@ function CSPlayground($playground, COLORS) {
 
 	var cells;
 	var currentColors;
+	var winCallback = $.noop();
 
 	function initializePlayground(size) {
 		cells = new Array(size);
@@ -146,10 +147,30 @@ function CSPlayground($playground, COLORS) {
 		}
 	}
 
+	function haveAllCellsSameColor() {
+		var color = null;
+
+		for (i = 0; i < cells.length; i++) {
+            for (j = 0; j < cells.length; j++) {
+				var currentColor = cells[i][j].attr('data-color');
+				if(color == null) {
+					color = currentColor;
+				}
+
+				if(color != currentColor) {
+					return false;
+				}
+            }
+        }
+
+        return true;
+    }
+	
 	/*
 	 * PUBLIC API
 	 */
-	this.initialize = function(size) {
+	this.initialize = function(size, callback) {
+		winCallback = callback;
 		initializePlayground(size);
 		initializeColors(size);
 	};
@@ -158,5 +179,9 @@ function CSPlayground($playground, COLORS) {
 		var previousColor = cells[0][0].attr('data-color');
 		var processedCells = [];
 		changeColor(previousColor, color, cells[0][0], processedCells, 0);
+
+		if(haveAllCellsSameColor() == true) {
+			winCallback();
+		}
 	};
 }

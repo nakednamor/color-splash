@@ -7,7 +7,12 @@ function ColorSplash($gameDiv) {
 
 	// TODO bind to buttons easy, medium, hard and initialize the playground
 	// with the given size
-	playground.initialize(4);
+	playground.initialize(4, function () {
+		setTimeout(function(){
+            alert('You Win !!!');
+		}, 200);
+
+    });
 
 	bindColorButtons();
 

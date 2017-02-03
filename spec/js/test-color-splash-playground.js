@@ -7,7 +7,7 @@ describe('CSPlayground', function() {
 		$playgroundElement = $(document.createElement('table'));
 	});
 
-	describe('.initialize(3)', function() {
+	describe('.initialize(3, undefined)', function() {
 
 		// given
 		var colors = [ 'red', 'blue', 'green' ];
@@ -17,7 +17,7 @@ describe('CSPlayground', function() {
 			playground = new CSPlayground($playgroundElement, colors);
 
 			// when
-			playground.initialize(size);
+			playground.initialize(size, undefined);
 		});
 
 		it('should create ' + (size * size) + ' cells', function() {
@@ -80,10 +80,16 @@ describe('CSPlayground', function() {
 		// given
 		var colors = [ 'red', 'blue', 'green', 'yellow' ];
 		var size = 4;
+		var winCallbackCalls = 0;
+		var winCallback = function () {
+			winCallbackCalls++;
+        }
 
 		beforeEach(function() {
+            winCallbackCalled = 0;
+
 			playground = new CSPlayground($playgroundElement, colors);
-			playground.initialize(size);
+			playground.initialize(size, winCallback);
 		});
 
 		describe('when neighbours of start cell have different color than start cell and picked one', function() {
@@ -176,8 +182,24 @@ describe('CSPlayground', function() {
 
 		});
 
-	});
+        describe('when all cells have the same color', function(){
 
+            beforeEach(function() {
+				// given
+                changeColorOfAllCells($playgroundElement, 'green');
+                changeColorOfCellByPosition($playgroundElement, 'blue', 3, 3);
+
+                // when
+                playground.pickColor('blue');
+            });
+
+            it('should call the win-callback', function () {
+                // then
+				expect(winCallbackCalls).toEqual(1);
+            });
+        });
+
+	});
 });
 
 function getCellByPosition($playgroundElement, x, y) {
