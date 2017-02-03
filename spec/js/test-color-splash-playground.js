@@ -83,10 +83,10 @@ describe('CSPlayground', function() {
 		var winCallbackCalls = 0;
 		var winCallback = function () {
 			winCallbackCalls++;
-        }
+        };
 
 		beforeEach(function() {
-            winCallbackCalled = 0;
+            winCallbackCalls = 0;
 
 			playground = new CSPlayground($playgroundElement, colors);
 			playground.initialize(size, winCallback);
@@ -234,7 +234,7 @@ function changeColorOfCellByPosition($playgroundElement, color, x, y) {
 }
 
 function assertColorOfCell($playgroundElement, expectedColor, x, y) {
-	var cell = getCellByPosition($playgroundElement, x, y)
+	var cell = getCellByPosition($playgroundElement, x, y);
 	var color = cell.attr('data-color');
 
 	if (expectedColor != color) {

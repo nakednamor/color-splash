@@ -9,15 +9,15 @@ function CSPlayground($playground, COLORS) {
 
 		var $row = $(document.createElement('tr'));
 		var $cell = $(document.createElement('td'));
-		$cell.addClass('cell')
+		$cell.addClass('cell');
 
-		for (i = 0; i < size; i++) {
+		for (var i = 0; i < size; i++) {
 			cells[i] = new Array(size);
 
 			var $rowClone = $row.clone();
 			cells[i] = new Array(size);
 
-			for (j = 0; j < size; j++) {
+			for (var j = 0; j < size; j++) {
 
 				var $cellClone = $cell.clone();
 
@@ -80,13 +80,12 @@ function CSPlayground($playground, COLORS) {
 		var colorIndexNeighbour2 = getRandomInt(0, colorsWithoutStartColor.length);
 		var colorNeighbour2 = colorsWithoutStartColor[colorIndexNeighbour2];
 		cells[1][0].attr('data-color', colorNeighbour2);
-		var x = 2;
 	}
 
 	function addColorsToNonStartCells(colors) {
-		for (i = 0; i < cells.length; i++) {
+		for (var i = 0; i < cells.length; i++) {
 
-			for (j = 0; j < cells.length; j++) {
+			for (var j = 0; j < cells.length; j++) {
 
 				if (i == 0 && j == 0) {
 					// skip start cell
@@ -126,7 +125,7 @@ function CSPlayground($playground, COLORS) {
 		}
 	}
 
-	function getNeighbours($cell, level) {
+	function getNeighbours($cell) {
 		var neighbours = [];
 
 		var x = parseInt($cell.attr('data-index-x'));
@@ -150,8 +149,8 @@ function CSPlayground($playground, COLORS) {
 	function haveAllCellsSameColor() {
 		var color = null;
 
-		for (i = 0; i < cells.length; i++) {
-            for (j = 0; j < cells.length; j++) {
+		for (var i = 0; i < cells.length; i++) {
+            for (var j = 0; j < cells.length; j++) {
 				var currentColor = cells[i][j].attr('data-color');
 				if(color == null) {
 					color = currentColor;
