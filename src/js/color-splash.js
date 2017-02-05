@@ -5,9 +5,14 @@ function ColorSplash($gameDiv) {
 	var $playgroundElement = $('#playground', $gameDiv);
 	var playground = new CSPlayground($playgroundElement, COLORS);
 
+	var initialSize = 6;
+
+	var $settingsButtonsElement = $('#settings', $gameDiv);
+	var settingsButtons = new CSSettingsButtons($settingsButtonsElement, playground, initialSize);
+
 	// TODO bind to buttons easy, medium, hard and initialize the playground
 	// with the given size
-	playground.initialize(4, function () {
+	playground.initialize(initialSize, function () {
 		setTimeout(function(){
             alert('You Win !!!');
 		}, 200);
@@ -16,6 +21,7 @@ function ColorSplash($gameDiv) {
 
 	bindColorButtons();
 
+	// TODO create separate component for color-pick buttons
 	function bindColorButtons() {
 
 		var $buttons = $('#color-buttons .color-button', $gameDiv);
@@ -27,5 +33,4 @@ function ColorSplash($gameDiv) {
 
 		});
 	}
-
 }

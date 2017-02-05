@@ -198,8 +198,41 @@ describe('CSPlayground', function() {
 				expect(winCallbackCalls).toEqual(1);
             });
         });
-
 	});
+
+	describe('.reset(2)', function () {
+
+		var notExistingColor = 'not-existing-color';
+        var colors = [ 'red', 'blue', 'green', 'yellow' ];
+        var previousSize = 3;
+        var newSize = 2;
+
+		beforeEach(function () {
+			// given
+            playground = new CSPlayground($playgroundElement, colors);
+            playground.initialize(previousSize, $.noop);
+
+			changeColorOfAllCells($playgroundElement, notExistingColor);
+			assertAmountOfCells($playgroundElement, Math.pow(previousSize, 2));
+
+			// when
+			playground.reset(newSize);
+        });
+
+		it('should remove all previous existing cells', function () {
+			// then
+			var $actualCells = $('td', $playgroundElement);
+			$.each($actualCells, function (index, element) {
+				var $actualCell = $(element);
+				var actualColor = $actualCell.attr('data-color');
+				expect(actualColor).not.toEqual(notExistingColor);
+            });
+        });
+
+        it('should create new 4 new cells', function () {
+            assertAmountOfCells($playgroundElement, Math.pow(newSize, 2));
+        });
+    });
 });
 
 function getCellByPosition($playgroundElement, x, y) {
@@ -242,4 +275,9 @@ function assertColorOfCell($playgroundElement, expectedColor, x, y) {
 	}
 
 	expect(color).toEqual(expectedColor);
+}
+
+function assertAmountOfCells($playgroundElement, expected) {
+	var $actualCells = $('td', $playgroundElement);
+	expect($actualCells.length).toEqual(expected);
 }

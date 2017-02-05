@@ -164,14 +164,22 @@ function CSPlayground($playground, COLORS) {
 
         return true;
     }
+
+    function init(size) {
+        initializePlayground(size);
+        initializeColors(size);
+    }
+
+    function removeAllCells() {
+		$playground.empty();
+    }
 	
 	/*
 	 * PUBLIC API
 	 */
 	this.initialize = function(size, callback) {
 		winCallback = callback;
-		initializePlayground(size);
-		initializeColors(size);
+		init(size);
 	};
 
 	this.pickColor = function(color) {
@@ -182,5 +190,10 @@ function CSPlayground($playground, COLORS) {
 		if(haveAllCellsSameColor() == true) {
 			winCallback();
 		}
+	};
+
+	this.reset = function(size) {
+		removeAllCells();
+		init(size);
 	};
 }
